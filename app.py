@@ -1,9 +1,10 @@
 import streamlit as st
+import pathlib
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import pkg_resources
-import pathlib
+
 
 data_path = pathlib.Path(pkg_resources.resource_filename('pivpy','data'))
 
@@ -40,7 +41,7 @@ def main():
 
     data_selectbox = st.sidebar.selectbox(
         'Which dataset?',
-        ('Demo', 'Jet', 'Canopy'))
+        ('Demo', 'Jet', 'PIV Challenge'))
 
     streamlines = st.sidebar.checkbox('Streamlines?',value = False)
 
@@ -109,7 +110,12 @@ def main():
         fig, ax = graphics.quiver(data.piv.average,streamlines=streamlines,colbar=colorbar,colbar_orient='vertical')
     else:
         t = st.selectbox('Frame number',range(len(data.t)))
-        fig, ax = graphics.quiver(data.isel(t=t),streamlines=streamlines,colbar=colorbar,colbar_orient='vertical')
+        fig, ax = graphics.quiver(
+            data.isel(t=t), 
+            streamlines=streamlines, 
+            colorbar=colorbar,
+            colorbar_orient='vertical'
+        )
 
 
     the_plot = st.pyplot(plt)
@@ -139,12 +145,15 @@ def main():
 
 @st.cache(allow_output_mutation=True)
 def load_data(data_selectbox='Demo'):
+    """ loads data """
     if data_selectbox == 'Demo':
         data = io.create_sample_Dataset()
     elif data_selectbox == 'Jet':
-        data = io.load_directory(data_path,basename='Run*',ext='.vec')
-    elif data_selectbox == 'Canopy':
-        data = io.load_directory(data_path / 'urban_canopy' ,ext='.vc7')
+        data = io.load_directory((data_path / "Insight"),basename='Run*',ext='.vec')
+    # elif data_selectbox == 'Canopy':
+    #     data = io.load_directory(data_path / "urban_canopy" ,ext='.vc7')
+    elif data_selectbox == 'PIV Challenge':
+        data = io.load_directory ( ( data_path / "PIV_Challenge"), ext='.txt')
 
 
     return data
