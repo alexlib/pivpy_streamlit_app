@@ -3,9 +3,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import pkg_resources
-import os
+import pathlib
 
-data_path = pkg_resources.resource_filename('pivpy','data')
+data_path = pathlib.Path(pkg_resources.resource_filename('pivpy','data'))
 
 # st.title('My first app')
 
@@ -52,7 +52,7 @@ def main():
     st.subheader('Create data set')
 
     """
-    `data = io.create_sample_dataset()`
+    `data = io.create_sample_Dataset()`
 
     """
 
@@ -140,11 +140,11 @@ def main():
 @st.cache(allow_output_mutation=True)
 def load_data(data_selectbox='Demo'):
     if data_selectbox == 'Demo':
-        data = io.create_sample_dataset()
+        data = io.create_sample_Dataset()
     elif data_selectbox == 'Jet':
         data = io.load_directory(data_path,basename='Run*',ext='.vec')
     elif data_selectbox == 'Canopy':
-        data = io.load_directory(os.path.join(data_path,'urban_canopy'),ext='.vc7')
+        data = io.load_directory(data_path / 'urban_canopy' ,ext='.vc7')
 
 
     return data
