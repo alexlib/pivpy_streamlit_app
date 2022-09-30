@@ -3,4 +3,5 @@ numpy
 scipy
 xarray
 pivpy
+typing
 streamlit
