@@ -4,4 +4,5 @@ scipy
 xarray
 pivpy
 typing
+typing-extensions
 streamlit
