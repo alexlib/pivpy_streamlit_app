@@ -6,3 +6,4 @@ git+https://github.com/alexlib/pivpy@master
 typing
 typing-extensions
 streamlit
+st-execbox

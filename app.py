@@ -120,6 +120,24 @@ def main():
 
     the_plot = st.pyplot(plt)
 
+    from execbox import execbox
+
+
+    # Draw a text editor and a "Run" button. When you press "Run", the code in the editor executes!
+    execbox()
+
+
+    # Makes the code run automatically on each keystroke.
+    # execbox(autorun=True, key='pivpy_execbox')
+
+
+    # Draw an execbox with some initial text.
+    execbox("""
+    a = 10
+    b = 20
+    st.write(a + b)
+    """)
+
 
 
     # max_x = 5
